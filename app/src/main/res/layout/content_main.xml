@@ -13,11 +13,20 @@
     tools:context="br.com.gabrielacolares.localizarmeusclientes.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:id="@+id/fragment"
-        android:name="br.com.gabrielacolares.localizarmeusclientes.MapFragment"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"></LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

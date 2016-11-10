@@ -1,8 +1,9 @@
 package br.com.gabrielacolares.localizarmeusclientes;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,10 +17,19 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    final Fragment fragmentMap = new MapFragment();
+    final Fragment fragmentCadastro = new CadastroFragment();
+    final Fragment fragmentPesquisar = new PesquisarFragment();
+    final Fragment fragmentLista = new ListaFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        addFragment(fragmentMap);
+
+        setBottomNavigation();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -32,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_navigation);
+    }
 
      /*   bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,32 +66,56 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         return false;
-                    }});*/
-
+                    }});
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = new Fragment();
                 switch (item.getItemId()) {
                     case R.id.item_menu_home:
-                        fragment = new Fragment();
+                        fragment = new MapFragment();
                         break;
                     case  R.id.item_menu_pesquisar:
-                        fragment = new Fragment();
+                        fragment = new PesquisarFragment();
                         break;
                     case R.id.item_menu_add:
-                        fragment = new Fragment();
+                        fragment = new ClienteFragment();
                         break;
 
                 }
 
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment,fragment);
-                fragmentTransaction.commit();
+
                 return false;
             }
         });
+*/
+
+
+        private void setBottomNavigation() {
+
+            BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                    findViewById(R.id.bottom_navigation);
+
+            bottomNavigationView.setOnNavigationItemSelectedListener(
+                    new BottomNavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                            switch (item.getItemId()){
+                                case R.id.action_home:
+                                    replaceFragment(fragmentMap);
+                                    break;
+
+                                case R.id.action_pesquisar:
+                                    replaceFragment(fragmentPesquisar);
+                                    break;
+
+                                case R.id.action_add_cliente:
+                                    replaceFragment(fragmentCadastro);
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
     }
 
     @Override
@@ -102,10 +134,34 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_lista) {
-            return true;
+            replaceFragment(fragmentPesquisar);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    private void addFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        transaction.add(R.id.fragment, fragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment, fragment);
+        //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void addCliente(View view){
+        Intent intent = new Intent(this, CadastroCliente.class);
+        startActivity(intent);
     }
     }
 
