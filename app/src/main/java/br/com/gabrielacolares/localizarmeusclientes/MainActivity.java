@@ -34,61 +34,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
     }
-
-     /*   bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.item_menu_home:
-                                textHome.setVisibility(View.VISIBLE);
-                                textPesquisar.setVisibility(View.GONE);
-                                textAdd.setVisibility(View.GONE);
-                                break;
-                            case R.id.item_menu_pesquisar:
-                                textHome.setVisibility(View.GONE);
-                                textPesquisar.setVisibility(View.VISIBLE);
-                                textAdd.setVisibility(View.GONE);
-                                break;
-                            case R.id.item_menu_add:
-                                textHome.setVisibility(View.GONE);
-                                textPesquisar.setVisibility(View.GONE);
-                                textAdd.setVisibility(View.VISIBLE);
-                                break;
-                        }
-                        return false;
-                    }});
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = new Fragment();
-                switch (item.getItemId()) {
-                    case R.id.item_menu_home:
-                        fragment = new MapFragment();
-                        break;
-                    case  R.id.item_menu_pesquisar:
-                        fragment = new PesquisarFragment();
-                        break;
-                    case R.id.item_menu_add:
-                        fragment = new ClienteFragment();
-                        break;
-
-                }
-
-
-                return false;
-            }
-        });
-*/
 
 
         private void setBottomNavigation() {
@@ -105,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
                                     replaceFragment(fragmentMap);
                                     break;
 
-                                case R.id.action_pesquisar:
-                                    replaceFragment(fragmentPesquisar);
+                                case R.id.action_listar:
+                                    replaceFragment(fragmentLista);
                                     break;
 
                                 case R.id.action_add_cliente:

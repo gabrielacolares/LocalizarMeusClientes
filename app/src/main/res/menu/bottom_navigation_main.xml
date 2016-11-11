@@ -8,10 +8,10 @@
         android:title="Home"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_pesquisar"
+        android:id="@+id/action_listar"
         android:enabled="true"
         android:icon="@drawable/ic_search_white_24dp"
-        android:title="Pesquisar"
+        android:title="Clientes"
         android:showAsAction="ifRoom"/>
 
     <item
