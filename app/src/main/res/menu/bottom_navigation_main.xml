@@ -4,13 +4,13 @@
     <item
         android:id="@+id/action_home"
         android:enabled="true"
-        android:icon="@drawable/ic_home_white_24dp"
-        android:title="Home"
+        android:icon="@drawable/ic_map_white_48dp"
+        android:title="Maps"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_listar"
         android:enabled="true"
-        android:icon="@drawable/ic_search_white_24dp"
+        android:icon="@drawable/ic_drag_handle_white_48dp"
         android:title="Clientes"
         android:showAsAction="ifRoom"/>
 

@@ -1,10 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:apk="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="br.com.gabrielacolares.myapplication.MainActivity">
-    <item
-        android:id="@+id/action_lista"
-        android:orderInCategory="100"
-        android:title="Clientes"
-        app:showAsAction="collapseActionView" />
+    <item android:id="@+id/itemMenu"
+        android:title=""
+        apk:showAsAction="always"></item>
 </menu>

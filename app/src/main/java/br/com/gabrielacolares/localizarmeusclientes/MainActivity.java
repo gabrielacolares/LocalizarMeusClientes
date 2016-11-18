@@ -19,7 +19,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     final Fragment fragmentMap = new MapFragment();
     final Fragment fragmentCadastro = new CadastroFragment();
-    final Fragment fragmentPesquisar = new PesquisarFragment();
     final Fragment fragmentLista = new ListaFragment();
 
     @Override
@@ -31,17 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         setBottomNavigation();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
 
@@ -85,11 +74,13 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+/*
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_lista) {
             replaceFragment(fragmentPesquisar);
         }
+*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -108,14 +99,9 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, fragment);
-        //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-    public void addCliente(View view){
-        Intent intent = new Intent(this, CadastroCliente.class);
-        startActivity(intent);
-    }
-    }
+}
 

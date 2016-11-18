@@ -1,25 +1,29 @@
 {
   "project_info": {
-    "project_number": "406343702924",
-    "firebase_url": "https://localizar-cliente.firebaseio.com",
-    "project_id": "localizar-cliente",
-    "storage_bucket": "localizar-cliente.appspot.com"
+    "project_number": "1002307469523",
+    "firebase_url": "https://localizarcliente.firebaseio.com",
+    "project_id": "localizarcliente",
+    "storage_bucket": "localizarcliente.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:406343702924:android:e6bf85bc6d810822",
+        "mobilesdk_app_id": "1:1002307469523:android:e6bf85bc6d810822",
         "android_client_info": {
           "package_name": "br.com.gabrielacolares.localizarmeusclientes"
         }
       },
       "oauth_client": [
         {
-          "client_id": "406343702924-r47h0611f2gmuv6koi3l09p4aldgpml7.apps.googleusercontent.com",
+          "client_id": "1002307469523-nhsvsnt20ug3jnues3vatdt62bpfdrqe.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmZjLnccsUxL2fbvzX_eySsPB5336fRsc"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
