@@ -55,8 +55,8 @@ public class CadastroFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_cliente:
-                this.salvar();
+            case R.id.itemMenu:
+                salvar();
                 break;
         }
         return true;

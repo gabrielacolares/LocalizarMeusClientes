@@ -2,6 +2,7 @@
     xmlns:apk="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item android:id="@+id/itemMenu"
+        apk:showAsAction="ifRoom"
         android:title="Adicionar"
-        apk:showAsAction="ifRoom"/>
+        android:icon="@drawable/ic_done_white_36dp"/>
 </menu>
