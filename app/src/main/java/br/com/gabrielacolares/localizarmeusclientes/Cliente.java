@@ -8,6 +8,7 @@ public class Cliente {
     String endereco;
     String bairro;
     String cidade;
+    String urlFoto;
 
     public Cliente() {
     }
@@ -58,5 +59,13 @@ public class Cliente {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 }

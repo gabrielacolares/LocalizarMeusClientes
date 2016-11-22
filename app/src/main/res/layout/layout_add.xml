@@ -1,71 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="50dp">
+    android:layout_marginBottom="60dp">
 
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/ic_account_circle_black_48dp"
+        android:id="@+id/img"
+        android:layout_centerHorizontal="true"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="80dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:orientation="vertical"
-        android:layout_margin="5dp">
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical"
+           >
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:hint="Nome"
-            android:id="@+id/nome"
-            android:layout_marginTop="0dp"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:hint="Email"
-            android:id="@+id/email"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:hint="Telefone"
-            android:id="@+id/telefone"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:hint="Rua"
-            android:id="@+id/rua"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:hint="Numero"
-            android:id="@+id/numero"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:hint="Bairro"
-            android:id="@+id/bairro"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:hint="Cidade"
-            android:id="@+id/cidade"/>
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:text="Cadastrar Cliente"
-            android:textAlignment="center"
-            android:layout_marginRight="1dp"
-            android:id="@+id/btnAdd"
-            android:background="@color/colorAccent"/>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_person_add_white_48dp"
+                    android:backgroundTint="#9f9e9e"/>
+
+                <EditText
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:hint="Nome"
+                    android:id="@+id/nome"
+                    android:textSize="14dp"
+                    android:layout_marginTop="0dp"/>
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_email_white_24dp"
+                android:backgroundTint="#9f9e9e"/>
+
+            <EditText
+                android:inputType="textEmailAddress"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:hint="Email"
+                android:textSize="14dp"
+                android:id="@+id/email" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_call_end_white_24dp"
+                android:backgroundTint="#9f9e9e"/>
+
+            <EditText
+                in
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:hint="Telefone"
+                android:textSize="14dp"
+                android:id="@+id/telefone"/>
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="#9f9e9e"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginLeft="18dp"
+                android:text="Endereço"
+                android:textColor="#000000"
+                android:textSize="14dp" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="#9f9e9e"/>
+
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:hint="Rua"
+                android:textSize="14dp"
+                android:id="@+id/rua"/>
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="#9f9e9e"/>
+
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:hint="Numero"
+                android:textSize="14dp"
+                android:id="@+id/numero"/>
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="#9f9e9e"/>
+
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:hint="Bairro"
+                android:textSize="14dp"
+                android:id="@+id/bairro"/>
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="#9f9e9e"/>
+
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:hint="Cidade"
+                android:textSize="14dp"
+                android:id="@+id/cidade" />
+
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>
 

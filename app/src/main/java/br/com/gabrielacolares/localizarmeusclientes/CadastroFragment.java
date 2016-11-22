@@ -4,7 +4,11 @@ package br.com.gabrielacolares.localizarmeusclientes;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,10 +40,35 @@ public class CadastroFragment extends Fragment {
     private View appView;
     private LayoutInflater myInflater;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main,menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_cliente:
+                this.salvar();
+                break;
+        }
+        return true;
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myInflater = inflater;
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Adicionar Cliente");
         return inflater.inflate(R.layout.layout_add, container, false);
     }
 
@@ -48,20 +77,13 @@ public class CadastroFragment extends Fragment {
         appView = view;
 
         editNome = (EditText) view.findViewById(R.id.nome);
+
         editEmail = (EditText) view.findViewById(R.id.email);
         editTelefone = (EditText) view.findViewById(R.id.telefone);
         editRua = (EditText) view.findViewById(R.id.rua);
         editNumero = (EditText) view.findViewById(R.id.numero);
         editBairro = (EditText) view.findViewById(R.id.bairro);
         editCidade = (EditText) view.findViewById(R.id.cidade);
-
-
-        Button button = (Button) view.findViewById(R.id.btnAdd);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                salvar();
-            }
-        });
     }
 
     public void salvar( ) {
