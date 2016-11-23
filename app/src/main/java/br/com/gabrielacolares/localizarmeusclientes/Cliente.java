@@ -1,12 +1,16 @@
 package br.com.gabrielacolares.localizarmeusclientes;
 
+import java.util.Date;
+
 public class Cliente {
 
     String nome;
     String email;
+    Date dataNascimento;
     String telefone;
-    String endereco;
+    String rua;
     String bairro;
+    String numero;
     String cidade;
     String urlFoto;
 
@@ -37,12 +41,12 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getRua() {
+        return rua;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public String getBairro() {
@@ -67,5 +71,21 @@ public class Cliente {
 
     public void setUrlFoto(String urlFoto) {
         this.urlFoto = urlFoto;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }

@@ -26,9 +26,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="30dp"
-            android:orientation="vertical"
-           >
-
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,6 +71,27 @@
 
         </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_cake_white_24dp"
+                    android:backgroundTint="#9f9e9e"/>
+
+                <EditText
+                    android:inputType="date"
+                    android:layout_width="230dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:hint="Data Nascimento"
+                    android:textSize="14dp"
+                    android:id="@+id/datanasc" />
+
+            </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -81,7 +100,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_call_end_white_24dp"
+                android:background="@drawable/ic_call_white_24dp"
                 android:backgroundTint="#9f9e9e"/>
 
             <EditText
@@ -122,6 +141,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_directions_white_24dp"
                 android:backgroundTint="#9f9e9e"/>
 
             <EditText
@@ -130,7 +150,8 @@
                 android:layout_marginLeft="15dp"
                 android:hint="Rua"
                 android:textSize="14dp"
-                android:id="@+id/rua"/>
+                android:id="@+id/rua"
+                />
             </LinearLayout>
 
         <LinearLayout
@@ -141,6 +162,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_room_white_24dp"
                 android:backgroundTint="#9f9e9e"/>
 
             <EditText
@@ -161,6 +183,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_filter_hdr_white_24dp"
                 android:backgroundTint="#9f9e9e"/>
 
             <EditText
@@ -181,6 +204,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_location_city_white_24dp"
                 android:backgroundTint="#9f9e9e"/>
 
             <EditText
@@ -189,7 +213,7 @@
                 android:layout_marginLeft="15dp"
                 android:hint="Cidade"
                 android:textSize="14dp"
-                android:id="@+id/cidade" />
+                android:id="@+id/cidade"/>
 
             </LinearLayout>
         </LinearLayout>

@@ -42,14 +42,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/item_nome"
-                    android:text="Nome"
                     android:textColor="#000000"
                     android:textSize="14dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Santa Terezinha"
                     android:textSize="13dp"
                     android:id="@+id/item_rua"/>
 
@@ -59,24 +57,16 @@
                     android:orientation="horizontal">
 
                     <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:text="Novo Israel"
-                    android:id="@+id/item_bairro" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" , " />
+                        android:textSize="13dp"
+                        android:id="@+id/item_bairro"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13dp"
-                        android:text="2"
-                        android:id="@+id/numero"/>
-
+                        android:id="@+id/item_numero"/>
 
                 </LinearLayout>
             </LinearLayout>

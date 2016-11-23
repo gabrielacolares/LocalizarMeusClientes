@@ -28,6 +28,7 @@ import java.util.GregorianCalendar;
 public class CadastroFragment extends Fragment {
     private EditText editNome;
     private EditText editEmail;
+    private EditText editDataNascimento;
     private EditText editTelefone;
     private EditText editRg;
     private EditText editCpf;
@@ -36,9 +37,12 @@ public class CadastroFragment extends Fragment {
     private EditText editBairro;
     private EditText editCidade;
     private EditText editStatus;
-    private Calendar editDataNasc = new GregorianCalendar();
     private View appView;
     private LayoutInflater myInflater;
+    private Cliente cliente;
+
+    public CadastroFragment() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,7 +64,6 @@ public class CadastroFragment extends Fragment {
                 break;
         }
         return true;
-
     }
 
     @Nullable
@@ -75,10 +78,9 @@ public class CadastroFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         appView = view;
-
         editNome = (EditText) view.findViewById(R.id.nome);
-
         editEmail = (EditText) view.findViewById(R.id.email);
+        editDataNascimento = (EditText) view.findViewById(R.id.datanasc);
         editTelefone = (EditText) view.findViewById(R.id.telefone);
         editRua = (EditText) view.findViewById(R.id.rua);
         editNumero = (EditText) view.findViewById(R.id.numero);
@@ -86,11 +88,38 @@ public class CadastroFragment extends Fragment {
         editCidade = (EditText) view.findViewById(R.id.cidade);
     }
 
-    public void salvar( ) {
+    public void setaDados() {
         String nome = editNome.getText().toString() ;
-        Cliente cliente = new Cliente();
-        cliente.setNome(nome);
+        String email = editEmail.getText().toString();
+        Date dataNascimento = new Date(editDataNascimento.getText().toString());
+        String telefone = editTelefone.getText().toString();
+        String rua = editRua.getText().toString();
+        String numero = editNumero.getText().toString();
+        String bairro = editBairro.getText().toString();
+        String cidade = editBairro.getText().toString();
+
+        this.cliente = new Cliente();
+        this.cliente.setNome(nome);
+        this.cliente.setEmail(email);
+        this.cliente.setDataNascimento(dataNascimento);
+        this.cliente.setTelefone(telefone);
+        this.cliente.setRua(rua);
+        this.cliente.setNumero(numero);
+        this.cliente.setBairro(bairro);
+        this.cliente.setCidade(cidade);
+    }
+
+    public void salvar( ) {
+        setaDados();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("clientes");
-        databaseReference.push().setValue(cliente);
+        databaseReference.push().setValue(this.cliente);
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

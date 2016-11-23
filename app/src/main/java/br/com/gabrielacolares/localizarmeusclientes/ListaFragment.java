@@ -63,6 +63,8 @@ public class ListaFragment extends Fragment {
     }
 
     private void criarAdapter(View view, ArrayList<Cliente> lista) {
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+        listaClientes = lista;
         Adapter adapter = new Adapter(view.getContext(), lista);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.lista_clientes_recycler);
         recyclerView.setAdapter(adapter);
