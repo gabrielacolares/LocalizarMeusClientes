@@ -1,14 +1,13 @@
 package br.com.gabrielacolares.localizarmeusclientes;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -59,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void addFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.fragment, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
     private void replaceFragment(Fragment fragment) {
-        FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction  transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, fragment);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.addToBackStack(null);

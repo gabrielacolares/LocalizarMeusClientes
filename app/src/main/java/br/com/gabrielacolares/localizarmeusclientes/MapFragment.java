@@ -1,6 +1,6 @@
 package br.com.gabrielacolares.localizarmeusclientes;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
  * Created by gabrielacolares on 10/11/16.
  */
 
-public class MapFragment  extends Fragment{
+public class MapFragment  extends Fragment {
 
     @Nullable
     @Override

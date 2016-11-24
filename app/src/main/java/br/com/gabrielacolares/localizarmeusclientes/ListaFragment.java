@@ -1,5 +1,5 @@
 package br.com.gabrielacolares.localizarmeusclientes;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class ListaFragment extends Fragment {
     View myView;
     ArrayList<Cliente> clientes= new ArrayList<>();
-    final Fragment fragmentCadastro = new CadastroFragment();
 
     @Nullable
     @Override
