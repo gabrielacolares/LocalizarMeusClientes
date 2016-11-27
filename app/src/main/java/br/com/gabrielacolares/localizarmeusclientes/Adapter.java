@@ -37,7 +37,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
         Cliente cliente = lista.get(position);
         holder
                 .setNome(cliente.getNome())
@@ -45,17 +44,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 .setRua(cliente.getRua())
                 .setBairro(cliente.getBairro())
                 .setNumero(cliente.getNumero());
-
     }
 
     @Override
     public int getItemCount() {
-
         return lista.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         private TextView txtNome;
         private TextView txtRua;
         private TextView txtBairro;
@@ -97,14 +93,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         public ViewHolder setFotoCliente(String image){
             if(image== null) return this;
-
             Ocean.glide(context)
                     .load(image)
                     .build(GlideRequest.BITMAP)
                     .resize(200, 200)
                     .circle()
                     .into(imgCliente);
-
             return this;
         }
     }

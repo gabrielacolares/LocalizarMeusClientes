@@ -5,25 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="60dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/ic_account_circle_black_48dp"
-        android:id="@+id/img"
-        android:layout_centerHorizontal="true"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_account_circle_black_48dp"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/colorPrimary"
+        android:id="@+id/profile_image"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="5dp">
 
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginTop="0dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="30dp"
             android:orientation="vertical">
@@ -83,13 +91,15 @@
                     android:backgroundTint="#9f9e9e"/>
 
                 <EditText
-                    android:inputType="date"
                     android:layout_width="230dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="15dp"
                     android:hint="Data Nascimento"
                     android:textSize="14dp"
-                    android:id="@+id/datanasc" />
+                    android:id="@+id/datanasc"
+                    android:background="@null"
+                    android:imeOptions="actionDone"
+                    android:clickable="true" />
 
             </LinearLayout>
         <LinearLayout
@@ -214,10 +224,17 @@
                 android:hint="Cidade"
                 android:textSize="14dp"
                 android:id="@+id/cidade"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/img"
+                android:visibility="invisible"/>
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+</LinearLayout>
 </RelativeLayout>
 
 
