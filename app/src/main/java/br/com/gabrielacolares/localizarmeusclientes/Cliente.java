@@ -8,10 +8,9 @@ public class Cliente {
     String email;
     Date dataNascimento;
     String telefone;
-    String rua;
-    String bairro;
-    String numero;
-    String cidade;
+    String endereco;
+    Double latitude;
+    Double longitude;
     String urlFoto;
 
     public Cliente() {
@@ -33,6 +32,14 @@ public class Cliente {
         this.email = email;
     }
 
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
     public String getTelefone() {
         return telefone;
     }
@@ -41,28 +48,28 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public String getRua() {
-        return rua;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
-    public String getBairro() {
-        return bairro;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
-    public String getCidade() {
-        return cidade;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public String getUrlFoto() {
@@ -71,21 +78,5 @@ public class Cliente {
 
     public void setUrlFoto(String urlFoto) {
         this.urlFoto = urlFoto;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 }

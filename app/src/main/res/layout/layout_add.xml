@@ -19,6 +19,7 @@
         android:src="@drawable/ic_account_circle_black_48dp"
         app:civ_border_width="2dp"
         app:civ_border_color="@color/colorPrimary"
+        android:layout_marginTop="10dp"
         android:id="@+id/profile_image"/>
 
     <ScrollView
@@ -27,12 +28,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="30dp"
             android:orientation="vertical">
 
@@ -55,6 +56,12 @@
                     android:id="@+id/nome"
                     android:textSize="14dp"
                     android:layout_marginTop="0dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/img"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
         <LinearLayout
@@ -81,7 +88,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:layout_width="24dp"
@@ -104,7 +112,8 @@
             </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <ImageView
                 android:layout_width="24dp"
@@ -125,7 +134,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <ImageView
                 android:layout_width="24dp"
@@ -134,6 +144,7 @@
                 android:backgroundTint="#9f9e9e"/>
 
             <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="230dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="18dp"
@@ -145,92 +156,24 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:id="@+id/ivLocal"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ic_directions_white_24dp"
-                android:backgroundTint="#9f9e9e"/>
+                android:hint="Endereço"
+                android:backgroundTint="@color/colorPrimary"/>
 
-            <EditText
+            <TextView
+                android:text="Clique na imagem para obter o endereço."
+                android:id="@+id/tvplace"
                 android:layout_width="230dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:hint="Rua"
-                android:textSize="14dp"
-                android:id="@+id/rua"
-                />
-            </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_room_white_24dp"
-                android:backgroundTint="#9f9e9e"/>
-
-            <EditText
-                android:layout_width="230dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:hint="Numero"
-                android:textSize="14dp"
-                android:id="@+id/numero"/>
-
-            </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_filter_hdr_white_24dp"
-                android:backgroundTint="#9f9e9e"/>
-
-            <EditText
-                android:layout_width="230dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:hint="Bairro"
-                android:textSize="14dp"
-                android:id="@+id/bairro"/>
-
-            </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_location_city_white_24dp"
-                android:backgroundTint="#9f9e9e"/>
-
-            <EditText
-                android:layout_width="230dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="15dp"
-                android:hint="Cidade"
-                android:textSize="14dp"
-                android:id="@+id/cidade"/>
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/img"
-                android:visibility="invisible"/>
-
+                android:layout_marginLeft="15dp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

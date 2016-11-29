@@ -3,6 +3,8 @@ package br.com.gabrielacolares.localizarmeusclientes;
 
 import android.Manifest;
 import android.app.Activity;
+import android.location.Geocoder;
+import android.support.annotation.StringDef;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
@@ -17,6 +19,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.OrientationHelper;
@@ -33,8 +36,14 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +57,7 @@ import com.oceanbrasil.libocean.control.glide.ImageDelegate;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,13 +83,7 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
     private EditText editEmail;
     private EditText editDataNascimento;
     private EditText editTelefone;
-    private EditText editRg;
-    private EditText editCpf;
-    private EditText editRua;
-    private EditText editNumero;
-    private EditText editBairro;
-    private EditText editCidade;
-    private EditText editStatus;
+    private TextView tvplace;
     private View appView;
     private LayoutInflater myInflater;
     private Cliente cliente;
@@ -88,6 +92,8 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
     private File caminhoImagem;
     private byte bytesDaImagem[];
     private String foto;
+    private Place place;
+    private LocationRequest mLocationRequest;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,20 +133,18 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
         editEmail = (EditText) view.findViewById(R.id.email);
         editDataNascimento = (EditText) view.findViewById(R.id.datanasc);
         editTelefone = (EditText) view.findViewById(R.id.telefone);
-        editRua = (EditText) view.findViewById(R.id.rua);
-        editNumero = (EditText) view.findViewById(R.id.numero);
-        editBairro = (EditText) view.findViewById(R.id.bairro);
-        editCidade = (EditText) view.findViewById(R.id.cidade);
         img = (ImageView) view.findViewById(R.id.img);
         img2 = (CircleImageView) view.findViewById(R.id.profile_image);
-/*
-        img.setOnClickListener(new View.OnClickListener() {
+        tvplace = (TextView) view.findViewById(R.id.tvplace);
+
+        ImageView ivLocal = (ImageView)view.findViewById(R.id.ivLocal);
+        ivLocal.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                abrirCamera();
-                //onPickPhoto();
+            public void onClick(View view) {
+                botaoMapa();
             }
-        });*/
+        });
+
         img2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,8 +167,7 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
      */
     public void salvar() {
         final ProgressDialog progressDialog = new ProgressDialog(appView.getContext());
-
-        progressDialog.setMessage("Enviando foto");
+        progressDialog.setMessage("Enviando dados");
         progressDialog.setCancelable(false);
         progressDialog.show();
 
@@ -177,34 +180,36 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressDialog.dismiss();
 
-                        String nome = editNome.getText().toString();
-                        String email = editEmail.getText().toString();
-                        String telefone = editTelefone.getText().toString();
-
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); // Make sure user insert date into edittext in this format.
-
-                        Date dateObject;
 
                         try{
+
+                            String nome = editNome.getText().toString();
+                            String email = editEmail.getText().toString();
+                            String telefone = editTelefone.getText().toString();
+
+                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); // Make sure user insert date into edittext in this format.
+
+                            Date dateObject;
                             String dob_var=(editDataNascimento.getText().toString());
                             Log.d("data",dob_var);
                             dateObject = formatter.parse(dob_var);
 
-
-                            String rua = editRua.getText().toString();
-                            String numero = editNumero.getText().toString();
-                            String bairro = editBairro.getText().toString();
-                            String cidade = editBairro.getText().toString();
-
                             cliente = new Cliente();
+                            cliente.setNome(nome);
                             cliente.setEmail(email);
                             cliente.setDataNascimento(dateObject);
                             cliente.setTelefone(telefone);
-                            cliente.setRua(rua);
-                            cliente.setNumero(numero);
-                            cliente.setBairro(bairro);
-                            cliente.setCidade(cidade);
                             cliente.setUrlFoto(taskSnapshot.getDownloadUrl().toString());
+
+                            if(null!=place.getAddress()) {
+                                cliente.setEndereco(place.getAddress().toString());
+                            }
+
+                            if(null!=place.getLatLng()) {
+                                cliente.setLatitude( place.getLatLng().latitude);
+                                cliente.setLongitude( place.getLatLng().longitude);
+                            }
+
                         }
 
                         catch (java.text.ParseException e)
@@ -260,6 +265,16 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode == 11){
+            for( int i = 0; i < permissions.length; i++ ){
+                if( permissions[i].equalsIgnoreCase( android.Manifest.permission.ACCESS_FINE_LOCATION )
+                        && grantResults[i] == PackageManager.PERMISSION_GRANTED ){
+                    obterLocal();
+                }
+            }
+        }
+
         if (requestCode == REQUEST_PERMISSION) {
             if (PermissionUtil.verifyPermissions(grantResults)) {
                 onPickPhoto();
@@ -283,11 +298,19 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
                 if(resultCode== Activity.RESULT_OK && data!=null)
                 {
                     photoPaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_PHOTOS));
+                    addThemToView(photoPaths);
 
                 }
                 break;
+            case 88:
+                if (resultCode == RESULT_OK) {
+                     place = PlacePicker.getPlace(getActivity(),data);
+                    tvplace.setText(place.getAddress());
+                }
+                break;
+
         }
-        addThemToView(photoPaths);
+        //addThemToView(photoPaths);
     }
 
     @Override
@@ -308,10 +331,6 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
         editEmail.setText(null);
         editDataNascimento.setText(null);
         editTelefone.setText(null);
-        editRua.setText(null);
-        editNumero.setText(null);
-        editBairro.setText(null);
-        editCidade.setText(null);
         img.setImageBitmap(null);
     }
 
@@ -355,5 +374,39 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
                     .pickPhoto(this);
         }
     }
+
+    public void callAccessLocation() {
+
+
+        if( ContextCompat.checkSelfPermission( getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ){
+            if( ActivityCompat.shouldShowRequestPermissionRationale( getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION ) ){
+                Toast.makeText(getActivity(),"É preciso a permission ACCESS_FINE_LOCATION para apresentação dos eventos locais.",Toast.LENGTH_LONG).show();
+            }
+            else{
+                ActivityCompat.requestPermissions( getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 11 );
+            }
+        }
+        else{
+            Log.d("Debug", "Possui permissão para acessar a localização");
+            obterLocal();
+        }
+    }
+
+    private void obterLocal(){
+
+        try {
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+            startActivityForResult(builder.build(getActivity()), 88);
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void botaoMapa() {
+        Log.d("Ale","botaoMapa");
+        callAccessLocation();
+    }
+
 }
 

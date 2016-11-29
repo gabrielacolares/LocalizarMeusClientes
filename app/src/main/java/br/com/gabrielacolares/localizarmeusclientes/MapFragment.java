@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.SupportMapFragment;
+
 /**
  * Created by gabrielacolares on 10/11/16.
  */
 
-public class MapFragment  extends Fragment {
+public class MapFragment  extends SupportMapFragment {
 
     @Nullable
     @Override
@@ -20,4 +22,8 @@ public class MapFragment  extends Fragment {
         View view = inflater.inflate(R.layout.layout_map,container,false);
         return view;
     }
+
+
+
+
 }
