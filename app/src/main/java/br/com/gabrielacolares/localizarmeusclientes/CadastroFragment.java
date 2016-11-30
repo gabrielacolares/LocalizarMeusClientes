@@ -46,11 +46,13 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import com.oceanbrasil.libocean.Ocean;
 import com.oceanbrasil.libocean.control.glide.GlideRequest;
 import com.oceanbrasil.libocean.control.glide.ImageDelegate;

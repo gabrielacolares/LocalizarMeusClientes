@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Recupera do gerenciador de Fragments se existe o framgment de mapa
         fragmentMap = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_container);
 
-        // Verifica se a instancia do fragment de mapa ja existe
+        // Verifica se a instancia do fragment de mapa ja existezo
         if (fragmentMap == null) {
             fragmentMap = MapFragment.newInstance();
         }
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void moveCamera(GoogleMap googleMap, LatLng coord) {
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(coord) // Localizacao informada
-                .zoom(14) // Zoom da camera
+                .zoom(36) // Zoom da camera
                 .build();
 
         // Move a camera do mapa (pode usar os metodos  - moveCamera() ou animateCamera()
@@ -148,13 +148,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .position(coord)
                 .title(cliente.getNome())
                 .snippet(cliente.getEndereco())
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_marker_2_64))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_2_64))
                 .rotation(0)
                 .draggable(true);
 
         // Adiciona o marcador no mapa
         googleMap.addMarker(markerOptions);
 
+
+        //teste
+        //moveCamera(mMap, cali);
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(coord) // Localizacao informada
+                .zoom(14) // Zoom da camera
+                .build();
+
+        // Move a camera do mapa (pode usar os metodos  - moveCamera() ou animateCamera()
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         return coord;
     }
 
