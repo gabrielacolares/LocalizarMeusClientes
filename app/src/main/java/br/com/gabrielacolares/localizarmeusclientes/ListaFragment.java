@@ -1,7 +1,10 @@
 package br.com.gabrielacolares.localizarmeusclientes;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +25,7 @@ import java.util.ArrayList;
  * Created by gabrielacolares on 10/11/16.
  */
 
-public class ListaFragment extends Fragment {
+public class ListaFragment extends Fragment implements Adapter.AdapterListener {
     View myView;
     ArrayList<Cliente> clientes= new ArrayList<>();
 
@@ -37,9 +40,11 @@ public class ListaFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recuperarFirebase();
         myView = view;
+        recuperarFirebase();
+
     }
+
     private void recuperarFirebase(){
         clientes= new ArrayList<>();
         FirebaseDatabase.getInstance().getReference().child("clientes").addValueEventListener(new ValueEventListener() {
@@ -47,9 +52,9 @@ public class ListaFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                     Cliente cliente = snapshot.getValue(Cliente.class);
-                    Log.d("DEBUG"," >>> "+cliente.getNome());
                     clientes.add(cliente);
                 }
+
                 criarAdapter(myView,clientes);
                 escondeProgressBar(clientes);
             }
@@ -64,16 +69,48 @@ public class ListaFragment extends Fragment {
     private void criarAdapter(View view, ArrayList<Cliente> lista) {
         ArrayList<Cliente> listaClientes = new ArrayList<>();
         listaClientes = lista;
-        Adapter adapter = new Adapter(view.getContext(), lista);
+
+        Adapter adapter = new Adapter(getActivity(), lista);
+        adapter.setListener(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.lista_clientes_recycler);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        adapter.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setLayoutManager(layoutManager);
+        Log.d("Teste","criarAdapter");
+
     }
 
     private void escondeProgressBar(ArrayList<Cliente> lista) {
         if(lista.size() > 0){
             ProgressBar progressBar = (ProgressBar) myView.findViewById(R.id.loading);
             progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onItemClick(View view, int posicao) {
+        Log.d("teste","click");
+        Cliente cliente = new Cliente();
+        cliente = clientes.get(posicao);
+        Intent i = new Intent(getActivity(), DetalheCliente.class);
+        i.putExtra("nome", cliente.getNome());
+        i.putExtra("email", cliente.getEmail());
+        i.putExtra("datanasc", cliente.getDataNascimento());
+        i.putExtra("telefone", cliente.getTelefone());
+        i.putExtra("endereco", cliente.getEndereco());
+
+        //ClienteManager.getInstamce().setCliente(cliente);
+
+        i.putExtra("cliente", cliente);
+
+        View imgCliente = view.findViewById(R.id.item_img);
+
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.JELLY_BEAN) {
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeBasic().makeSceneTransitionAnimation(getActivity(),imgCliente,"cliente");
+            startActivity(i, optionsCompat.toBundle());
+        } else {
+            startActivity(i);
         }
     }
 }

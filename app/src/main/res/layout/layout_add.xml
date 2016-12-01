@@ -169,12 +169,14 @@
                 android:hint="Endereço"
                 android:backgroundTint="@color/colorPrimary"/>
 
-            <TextView
-                android:text="Clique na imagem para obter o endereço."
+            <AutoCompleteTextView
+                android:background="@null"
+                android:hint="Endereço ou clique no icone."
                 android:id="@+id/tvplace"
                 android:layout_width="230dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

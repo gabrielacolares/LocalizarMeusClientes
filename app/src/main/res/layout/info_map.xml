@@ -10,11 +10,11 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_map_marker_2_64"
+        android:id="@+id/img_info_map"
         android:backgroundTint="@color/colorPrimary"/>
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/tv_name_info_map"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_width="match_parent"

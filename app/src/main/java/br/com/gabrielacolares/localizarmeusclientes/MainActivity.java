@@ -1,24 +1,20 @@
 package br.com.gabrielacolares.localizarmeusclientes;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import  android.support.v4.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +31,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapLongClickListener {
 
@@ -68,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setBottomNavigation();
+        getSupportActionBar().setTitle("Client Control");
     }
 
     @Override
@@ -148,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .position(coord)
                 .title(cliente.getNome())
                 .snippet(cliente.getEndereco())
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker_2_64))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker))
                 .rotation(0)
                 .draggable(true);
 
@@ -186,7 +181,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         public View getInfoContents(Marker marker) {
             // Recupera a view do nome no layout
-            TextView vName = (TextView) view.findViewById(R.id.name);
+            TextView vName = (TextView) view.findViewById(R.id.tv_name_info_map);
+            ImageView imageView = (ImageView)  view.findViewById(R.id.img_info_map);
             vName.setText(marker.getTitle());
             return view;
         }
@@ -220,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Log.d(LABEL, "Um marcador foi clicado");
+
         return false;
     }
 

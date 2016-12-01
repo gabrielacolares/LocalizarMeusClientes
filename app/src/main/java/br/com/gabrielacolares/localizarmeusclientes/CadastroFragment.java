@@ -3,29 +3,20 @@ package br.com.gabrielacolares.localizarmeusclientes;
 
 import android.Manifest;
 import android.app.Activity;
-import android.location.Geocoder;
-import android.support.annotation.StringDef;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,32 +25,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import com.oceanbrasil.libocean.Ocean;
 import com.oceanbrasil.libocean.control.glide.GlideRequest;
 import com.oceanbrasil.libocean.control.glide.ImageDelegate;
 
-
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,23 +61,23 @@ import droidninja.filepicker.FilePickerBuilder;
 import droidninja.filepicker.FilePickerConst;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.LOCATION_SERVICE;
+import static br.com.gabrielacolares.localizarmeusclientes.R.id.tvplace;
 
 /**
  * Created by gabrielacolares on 10/11/16.
  */
 
-public class CadastroFragment extends Fragment implements ImageDelegate.BytesListener {
-
+public class CadastroFragment extends Fragment implements ImageDelegate.BytesListener, GoogleApiClient.OnConnectionFailedListener {
+    private static final LatLngBounds BOUNDS_GREATER_SYDNEY = new LatLngBounds(
+            new LatLng(-3.115855, -60.011705), new LatLng(-3.005463, -59.977544));
     private int MAX_ATTACHMENT_COUNT = 1;
-    private ArrayList<String> photoPaths = new ArrayList<>();
     private static final int REQUEST_PERMISSION = 9;
     private static String[] PERMISSIONS_READ_WRITE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private EditText editNome;
     private EditText editEmail;
     private EditText editDataNascimento;
     private EditText editTelefone;
-    private TextView tvplace;
+    private AutoCompleteTextView autoCompleteTextView;
     private View appView;
     private LayoutInflater myInflater;
     private Cliente cliente;
@@ -95,12 +87,15 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
     private byte bytesDaImagem[];
     private String foto;
     private Place place;
+    private ArrayList<String> photoPaths = new ArrayList<>();
     private LocationRequest mLocationRequest;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).enableAutoManage(getActivity(), 0 , this).addApi(Places.GEO_DATA_API).build();
     }
 
     @Override
@@ -137,7 +132,10 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
         editTelefone = (EditText) view.findViewById(R.id.telefone);
         img = (ImageView) view.findViewById(R.id.img);
         img2 = (CircleImageView) view.findViewById(R.id.profile_image);
-        tvplace = (TextView) view.findViewById(R.id.tvplace);
+
+        autoCompleteTextView = (AutoCompleteTextView) view.findViewById(tvplace);
+        PlaceAutocompleteAdapter mAdapter = new PlaceAutocompleteAdapter(getActivity(), mGoogleApiClient, BOUNDS_GREATER_SYDNEY, null);
+        autoCompleteTextView.setAdapter(mAdapter);
 
         ImageView ivLocal = (ImageView)view.findViewById(R.id.ivLocal);
         ivLocal.setOnClickListener(new View.OnClickListener() {
@@ -181,7 +179,6 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressDialog.dismiss();
-
 
                         try{
 
@@ -307,7 +304,7 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
             case 88:
                 if (resultCode == RESULT_OK) {
                      place = PlacePicker.getPlace(getActivity(),data);
-                    tvplace.setText(place.getAddress());
+                    autoCompleteTextView.setText(place.getAddress());
                 }
                 break;
 
@@ -410,5 +407,9 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
         callAccessLocation();
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        //tratar para erros
+    }
 }
 
