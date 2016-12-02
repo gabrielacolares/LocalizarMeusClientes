@@ -1,14 +1,13 @@
 package br.com.gabrielacolares.localizarmeusclientes;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,21 +24,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        addFragment(fragmentMap);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         setBottomNavigation();
-
-
     }
 
-
-        private void setBottomNavigation() {
-
-            BottomNavigationView bottomNavigationView = (BottomNavigationView)
+    private void setBottomNavigation() {
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
                     findViewById(R.id.bottom_navigation);
 
-            bottomNavigationView.setOnNavigationItemSelectedListener(
+        bottomNavigationView.setOnNavigationItemSelectedListener(
                     new BottomNavigationView.OnNavigationItemSelectedListener() {
                         @Override
                         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -61,45 +55,19 @@ public class MainActivity extends AppCompatActivity {
                     });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-/*
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_lista) {
-            replaceFragment(fragmentPesquisar);
-        }
-*/
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
 
     private void addFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.add(R.id.fragment, fragment);
         transaction.addToBackStack(null);
-
         transaction.commit();
     }
 
     private void replaceFragment(Fragment fragment) {
-        FragmentTransaction  transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction  transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, fragment);
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.addToBackStack(null);
         transaction.commit();
     }

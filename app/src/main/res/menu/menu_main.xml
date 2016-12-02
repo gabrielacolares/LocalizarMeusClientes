@@ -1,8 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:apk="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="br.com.gabrielacolares.myapplication.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
     <item android:id="@+id/itemMenu"
-        android:title=""
-        apk:showAsAction="always"></item>
+        apk:showAsAction="ifRoom"
+        android:title="Adicionar"
+        android:icon="@drawable/ic_done_white_36dp"/>
 </menu>

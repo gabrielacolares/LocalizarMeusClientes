@@ -4,20 +4,20 @@
     <item
         android:id="@+id/action_home"
         android:enabled="true"
-        android:icon="@drawable/ic_map_white_48dp"
+        android:icon="@drawable/ic_home_white_48dp"
         android:title="Maps"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_listar"
         android:enabled="true"
-        android:icon="@drawable/ic_drag_handle_white_48dp"
+        android:icon="@drawable/ic_storage_white_48dp"
         android:title="Clientes"
         android:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_add_cliente"
         android:enabled="true"
-        android:icon="@drawable/ic_person_add_white_24dp"
+        android:icon="@drawable/ic_person_add_white_48dp"
         android:title="Adicionar"
         android:showAsAction="ifRoom"/>
 </menu>
