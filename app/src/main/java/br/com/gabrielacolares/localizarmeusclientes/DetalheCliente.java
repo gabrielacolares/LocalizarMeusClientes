@@ -14,9 +14,9 @@ public class DetalheCliente extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_detalhe);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setContentView(R.layout.layout_detalhe);
         recuperarCliente();
     }
 
@@ -30,15 +30,19 @@ public class DetalheCliente extends AppCompatActivity {
 
         Cliente cliente = (Cliente) getIntent().getSerializableExtra("cliente");
         TextView tvNome = (TextView) findViewById(R.id.detalhesNome);
-        TextView tvEmail = (TextView) findViewById(R.id.detalhesEndereco);
+        TextView tvEmail = (TextView) findViewById(R.id.detalhesEmail);
+        TextView tvEndereco= (TextView) findViewById(R.id.detalhesEndereco);
         ImageView imageView = (ImageView) findViewById(R.id.detalhesImageView);
 
         tvNome.setText(nome);
         tvEmail.setText(email);
+        tvEndereco.setText(endereco);
 
         Ocean.glide(this)
                 .load(cliente.getUrlFoto())
                 .build(GlideRequest.BITMAP)
+                .resize(200, 200)
+                .circle()
                 .into(imageView);
     }
 }

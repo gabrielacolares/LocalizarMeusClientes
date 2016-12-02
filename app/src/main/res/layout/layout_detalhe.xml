@@ -30,22 +30,35 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:layout_gravity="center_horizontal"
                     android:id="@+id/detalhesImageView"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:transitionName="cliente"
-                    android:padding="12dp" />
+                    android:layout_height="match_parent"
+                    android:padding="10dp" />
 
                 <TextView
+                    android:layout_gravity="center_horizontal"
                     android:id="@+id/detalhesNome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="23sp"/>
+                    android:textSize="23sp"
+                    android:textColor="#000000"/>
+
 
                 <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/detalhesEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
                     android:id="@+id/detalhesEndereco"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:padding="10dp"/>
 
             </LinearLayout>
 

@@ -44,7 +44,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setBottomNavigation();
+        getSupportActionBar().setTitle("Client Control");
         // Recupera do gerenciador de Fragments se existe o framgment de mapa
         fragmentMap = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_container);
 
@@ -59,10 +62,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Registrar escucha onMapReadyCallback
         fragmentMap.getMapAsync(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        setBottomNavigation();
-        getSupportActionBar().setTitle("Client Control");
+
     }
 
     @Override
