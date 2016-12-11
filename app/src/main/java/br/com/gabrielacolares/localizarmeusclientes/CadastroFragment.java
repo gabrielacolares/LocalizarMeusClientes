@@ -1,6 +1,5 @@
 package br.com.gabrielacolares.localizarmeusclientes;
 
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -25,21 +24,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -61,23 +55,22 @@ import droidninja.filepicker.FilePickerBuilder;
 import droidninja.filepicker.FilePickerConst;
 
 import static android.app.Activity.RESULT_OK;
-import static br.com.gabrielacolares.localizarmeusclientes.R.id.tvplace;
 
 /**
  * Created by gabrielacolares on 10/11/16.
  */
 
-public class CadastroFragment extends Fragment implements ImageDelegate.BytesListener, GoogleApiClient.OnConnectionFailedListener {
-    private static final LatLngBounds BOUNDS_GREATER_SYDNEY = new LatLngBounds(
-            new LatLng(-3.115855, -60.011705), new LatLng(-3.005463, -59.977544));
+public class CadastroFragment extends Fragment implements ImageDelegate.BytesListener {
+
     private int MAX_ATTACHMENT_COUNT = 1;
+    private ArrayList<String> photoPaths = new ArrayList<>();
     private static final int REQUEST_PERMISSION = 9;
     private static String[] PERMISSIONS_READ_WRITE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private EditText editNome;
     private EditText editEmail;
     private EditText editDataNascimento;
     private EditText editTelefone;
-    private AutoCompleteTextView autoCompleteTextView;
+    private TextView tvplace;
     private View appView;
     private LayoutInflater myInflater;
     private Cliente cliente;
@@ -87,15 +80,12 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
     private byte bytesDaImagem[];
     private String foto;
     private Place place;
-    private ArrayList<String> photoPaths = new ArrayList<>();
     private LocationRequest mLocationRequest;
-    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity()).enableAutoManage(getActivity(), 0 , this).addApi(Places.GEO_DATA_API).build();
     }
 
     @Override
@@ -132,10 +122,7 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
         editTelefone = (EditText) view.findViewById(R.id.telefone);
         img = (ImageView) view.findViewById(R.id.img);
         img2 = (CircleImageView) view.findViewById(R.id.profile_image);
-
-        autoCompleteTextView = (AutoCompleteTextView) view.findViewById(tvplace);
-        PlaceAutocompleteAdapter mAdapter = new PlaceAutocompleteAdapter(getActivity(), mGoogleApiClient, BOUNDS_GREATER_SYDNEY, null);
-        autoCompleteTextView.setAdapter(mAdapter);
+        tvplace = (TextView) view.findViewById(R.id.tvplace);
 
         ImageView ivLocal = (ImageView)view.findViewById(R.id.ivLocal);
         ivLocal.setOnClickListener(new View.OnClickListener() {
@@ -179,6 +166,7 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressDialog.dismiss();
+
 
                         try{
 
@@ -303,8 +291,8 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
                 break;
             case 88:
                 if (resultCode == RESULT_OK) {
-                     place = PlacePicker.getPlace(getActivity(),data);
-                    autoCompleteTextView.setText(place.getAddress());
+                    place = PlacePicker.getPlace(getActivity(),data);
+                    tvplace.setText(place.getAddress());
                 }
                 break;
 
@@ -340,7 +328,7 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
 
     private void addThemToView(ArrayList<String> imagePaths) {
         if(imagePaths!=null)
-         foto = imagePaths.get(0);
+            foto = imagePaths.get(0);
         caminhoImagem = new File(foto);
 
         if (foto != null) {
@@ -407,9 +395,4 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
         callAccessLocation();
     }
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        //tratar para erros
-    }
 }
-
