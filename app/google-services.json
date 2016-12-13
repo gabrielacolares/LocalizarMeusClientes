@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1002307469523-4pr1dtligfvfs2bmh7onugcf9ipc8ctk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.gabrielacolares.localizarmeusclientes",
+            "certificate_hash": "E9444509A451F62CEFC27E56C148AAAD1D5B0C92"
+          }
+        },
+        {
+          "client_id": "1002307469523-5k144vkbnjp8lbf3fnb2dvp6v4fu0t53.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.gabrielacolares.localizarmeusclientes",
+            "certificate_hash": "176D6F4D2E15968A01B2E390BB8418DC112E645D"
+          }
+        },
+        {
           "client_id": "1002307469523-nhsvsnt20ug3jnues3vatdt62bpfdrqe.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002307469523-nhsvsnt20ug3jnues3vatdt62bpfdrqe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
