@@ -191,14 +191,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         lerDadosFirebase();
         mMap = googleMap;
 
+        LatLng coord = new LatLng(3.4383, -76.5161);
+
         // Adiciona um marcador estatico
-        //  LatLng coord = addNewMarker(3.4383, -76.5161, googleMap);
+        //LatLng coord = addNewMarker(3.4383, -76.5161, googleMap);
 
         // Personalizar a janela de informacoes do marcador
         googleMap.setInfoWindowAdapter(new MyAdapterMarker(this));
 
         // Move a camera do mapa para o novo marcado
-        // moveCamera(googleMap, coord);
+         moveCamera(googleMap, coord);
 
         // Ativa a bussola
         googleMap.getUiSettings().setCompassEnabled(true);
@@ -247,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void moveCamera(GoogleMap googleMap, LatLng coord) {
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(coord) // Localizacao informada
-                .zoom(36) // Zoom da camera
+                .zoom(14) // Zoom da camera
                 .build();
 
         // Move a camera do mapa (pode usar os metodos  - moveCamera() ou animateCamera()

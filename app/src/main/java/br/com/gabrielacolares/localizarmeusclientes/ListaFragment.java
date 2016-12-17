@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
@@ -72,8 +73,10 @@ public class ListaFragment extends Fragment implements Adapter.AdapterListener {
 
         Adapter adapter = new Adapter(getActivity(), lista);
         adapter.setListener(this);
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.lista_clientes_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
         adapter.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(layoutManager);
@@ -82,9 +85,15 @@ public class ListaFragment extends Fragment implements Adapter.AdapterListener {
     }
 
     private void escondeProgressBar(ArrayList<Cliente> lista) {
+        ProgressBar progressBar = (ProgressBar) myView.findViewById(R.id.loading);
+        LinearLayout linearLayout = (LinearLayout) myView.findViewById(R.id.linear_layout_lista_vazia);
+        progressBar.setVisibility(View.VISIBLE);
         if(lista.size() > 0){
-            ProgressBar progressBar = (ProgressBar) myView.findViewById(R.id.loading);
             progressBar.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.GONE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
         }
     }
 

@@ -162,6 +162,7 @@
 
             <ImageView
                 android:id="@+id/ivLocal"
+                android:padding="10dp"
                 android:layout_width="34dp"
                 android:layout_height="34dp"
                 android:layout_gravity="center_vertical"

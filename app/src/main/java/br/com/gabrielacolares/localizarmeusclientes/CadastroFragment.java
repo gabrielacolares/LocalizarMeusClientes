@@ -318,7 +318,10 @@ public class CadastroFragment extends Fragment implements ImageDelegate.BytesLis
         editEmail.setText(null);
         editDataNascimento.setText(null);
         editTelefone.setText(null);
+        tvplace.setText(null);
         img.setImageBitmap(null);
+        //img.setBackground();
+
     }
 
     public void showDatePickerDialogDataNascimento() {
