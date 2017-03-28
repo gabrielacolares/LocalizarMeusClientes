@@ -22,9 +22,6 @@ public class MapFragment  extends SupportMapFragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Client Control");
         return view;
+
     }
-
-
-
-
 }

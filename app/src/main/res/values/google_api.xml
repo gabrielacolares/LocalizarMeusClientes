@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="api_key" translatable="false">AIzaSyCbZY6h5TuuHu1aldT-znyYHT8cwODMqYk</string>
+    <!-- Chave de Api que está no console developers-->
+<string name="api_key" translatable="false">AIzaSyCbZY6h5TuuHu1aldT-znyYHT8cwODMqYk
+</string>
 </resources>

@@ -3,16 +3,19 @@ package br.com.gabrielacolares.localizarmeusclientes;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Cliente implements Serializable{
+public class Cliente implements Serializable, Comparable<Cliente> {
 
-    String nome;
-    String email;
-    Date dataNascimento;
-    String telefone;
-    String endereco;
-    Double latitude;
-    Double longitude;
-    String urlFoto;
+    private String nome;
+    private String email;
+    private Date dataNascimento;
+    private String telefone;
+    private String endereco;
+    private Double latitude;
+    private Double longitude;
+    private String urlFoto;
+    private long timestamp;
+
+
 
     public Cliente() {
     }
@@ -79,5 +82,24 @@ public class Cliente implements Serializable{
 
     public void setUrlFoto(String urlFoto) {
         this.urlFoto = urlFoto;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    @Override
+    public int compareTo(Cliente cliente) {
+        if (this.timestamp > cliente.getTimestamp()) {
+            return 1;
+        }
+        if (this.timestamp < cliente.getTimestamp()) {
+            return -1;
+        }
+        return 0;
     }
 }

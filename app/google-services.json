@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1002307469523-358ae9kvhtmgh1tj674ljpn6l38id3ql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.gabrielacolares.localizarmeusclientes",
+            "certificate_hash": "92957B362A3B8221051C1A15A2C197BF08F6F9EA"
+          }
+        },
+        {
+          "client_id": "1002307469523-2u9s1nv1lponl0iertmb75hg7s84e568.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.gabrielacolares.localizarmeusclientes",
+            "certificate_hash": "3132F1B15DF140F0620DA08FAE032B836FA1F178"
+          }
+        },
+        {
           "client_id": "1002307469523-4pr1dtligfvfs2bmh7onugcf9ipc8ctk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

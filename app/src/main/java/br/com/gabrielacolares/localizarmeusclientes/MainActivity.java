@@ -46,6 +46,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapLongClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private static final int LOCATION_REQUEST_CODE = 1;
@@ -59,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String TAG = "MainActivity";
+    private List<Cliente> clientes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         mAuth = FirebaseAuth.getInstance();
         mAuthListener();
 
@@ -73,6 +78,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         signIn();
         setBottomNavigation();
         getSupportActionBar().setTitle("Client Control");
+
+       //Cria o botao flutuante
+       /* FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+            }
+        });*/
 
         // Recupera do gerenciador de Fragments se existe o framgment de mapa
         fragmentMap = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_container);
@@ -140,15 +155,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 GoogleSignInAccount account = result.getSignInAccount();
                 String nome = account.getDisplayName();
                 Log.d("DisplayName",nome);
+                //faz autenticaçao no firebase com a conta do google
                 firebaseAuthWithGoogle(account);
             } else {
                 // Google Sign In failed, update UI appropriately
                 // ...
                 Log.d("status",""+result.getStatus().getStatusMessage());
+                finish();
             }
         }
     }
-
+//AUTENTICAR NO FIREBASE COM GOOGLE SIGIN
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -166,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(MainActivity.this, "Falha ao efetuar login.",
                                     Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                         // ...
                     }
@@ -191,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         lerDadosFirebase();
         mMap = googleMap;
 
-        LatLng coord = new LatLng(3.4383, -76.5161);
+        LatLng coord = new LatLng(-11.446038, -51.138763);
 
         // Adiciona um marcador estatico
         //LatLng coord = addNewMarker(3.4383, -76.5161, googleMap);
@@ -249,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void moveCamera(GoogleMap googleMap, LatLng coord) {
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(coord) // Localizacao informada
-                .zoom(14) // Zoom da camera
+                .zoom(4) // Zoom da camera
                 .build();
 
         // Move a camera do mapa (pode usar os metodos  - moveCamera() ou animateCamera()
@@ -257,7 +275,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private LatLng addNewMarker(Cliente cliente, GoogleMap googleMap) {
-
         // Cria o objeto das coordenadas
         LatLng coord = new LatLng(cliente.getLatitude(), cliente.getLongitude());
 
@@ -278,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //moveCamera(mMap, cali);
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(coord) // Localizacao informada
-                .zoom(14) // Zoom da camera
+                .zoom(4) // Zoom da camera
                 .build();
 
         // Move a camera do mapa (pode usar os metodos  - moveCamera() ou animateCamera()
@@ -365,7 +382,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Log.d(LABEL, "Clicou na janela de informacoes do marcador");
+        Log.d(LABEL, "Clicou na janela de informacoes do marcador"+marker.getClass().toString());
+        String id = marker.getId().substring(1,marker.getId().length());
+        Cliente cliente = clientes.get(Integer.parseInt(id));
+        Log.d("DEBUG - MapFragment", marker.getId()+" >> ID >> " +id + " >> "+cliente.getNome() );
+        Intent intent = new Intent(this, DetalheCliente.class);
+        intent.putExtra("cliente", cliente);
+        startActivity(intent);
+
     }
 
     private void setBottomNavigation() {

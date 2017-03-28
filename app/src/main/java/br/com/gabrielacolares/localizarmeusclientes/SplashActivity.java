@@ -24,4 +24,10 @@ public class SplashActivity extends AppCompatActivity{
             }
         },2000);
     }
+
+    protected void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        finish();
+    }
 }
